@@ -1,0 +1,12 @@
+{
+  "commit": {
+    "commit": "287f2a7978bab533434eafb88ea11077d47da144",
+    "author": "Simon Goring <goring@wisc.edu>",
+    "time": "2020-09-20 18:21:11",
+    "files": 3,
+    "merge": false,
+    "message": "Updated notes for Neotoma R package to upload to CRAN.\n"
+  },
+  "remote": "https://github.com/ropensci/neotoma",
+  "pkg": "neotoma"
+}
