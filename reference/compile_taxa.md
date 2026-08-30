@@ -1,0 +1,104 @@
+# Function to convert assemblage taxa to standardized lists.
+
+From the assemblage data for the core return assemblage data with the
+assemblage taxa Currently implemented only for pollen data.
+
+## Usage
+
+``` r
+compile_taxa(object, list.name, alt.table = NULL, cf = TRUE, type = TRUE)
+```
+
+## Arguments
+
+- object:
+
+  A pollen object returned by
+  [`get_download`](https://docs.ropensci.org/neotoma/reference/get_download.md).
+
+- list.name:
+
+  The taxon compilation list, one of a set of lists from the literature
+  (e.g., `"P25"`, `"WhitmoreFull"`). More detail in section Details.
+
+- alt.table:
+
+  A user provided table formatted with at least two columns, one called
+  'taxon' and the other named as in `list.name`.
+
+- cf:
+
+  Should taxa listed as \*cf\*s (\*e.g.\*, \*cf\*. \*Gilia\*) be
+  considered highly resolved?
+
+- type:
+
+  Should taxa listed as types (\*e.g.\*, \*Iva annua\*-type) be
+  considered highly resolved?
+
+## Value
+
+This command returns a list object with the same structure as the parent
+pollen object returned by
+[`get_download`](https://docs.ropensci.org/neotoma/reference/get_download.md),
+or a matrix (or data frame) depending on whether `object` is one or the
+other. Any pollen taxon not included in the major taxa defined in the
+pollen gets returned as 'Other'.
+
+## Details
+
+The data object uses the smaller pollen subset. As this package develops
+we will add the capacity to summarize data output from the translation.
+Currently we can return only subsets that have been defined in the
+literature. These lists include:
+
+- `"P25"` This list is derived from Gavin et al., (2003), and includes
+  25 pollen taxa.
+
+- `"WS64"` This list is derived from Williams and Shuman (2008).
+
+- `"WhitmoreFull"` This is the full list associated with the Whitmore et
+  al., (2005) North American Modern Pollen Database.
+
+- `"WhitmoreSmall"` As above, but taxa for which both fully resolved and
+  undifferentiated exist these taxa are summed.
+
+## References
+
+Neotoma Project Website: http://www.neotomadb.org
+
+Gavin DG, Oswald WW, Wahl ER, Williams JW. 2003. A statistical approach
+to evaluating distance metrics and analog assignments for pollen
+records. Quaternary Research 60: 356-367.
+
+Whitmore J, Gajewski K, Sawada M, Williams JW, Shuman B, Bartlein PJ,
+Minckley T, Viau AE, Webb III T, Shafer S, Anderson P, Brubaker L. 2005.
+Modern pollen data from North America and Greenland for multi-scale
+paleoenvironmental applications. Quaternary Science Reviews 24:
+1828-1848.
+
+Williams J, Shuman B. 2008. Obtaining accurate and precise environmental
+reconstructions from the modern analog technique and North American
+surface pollen dataset. Quaternary Science Reviews. 27:669-687.
+
+API Reference: http://wnapi.neotomadb.org/doc/resources/contacts
+
+## Author
+
+Simon J. Goring <simon.j.goring@gmail.com>
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+#  Search for sites with "Thuja" pollen that are older than 8kyr BP and
+#  that are on the west coast of North America:
+t8kyr.datasets <- get_dataset(taxonname='Thuja*', loc=c(-150, 20, -100, 60), ageyoung = 8000)
+
+#  Returns 3 records (as of 04/04/2013), get dataset for the first record, Gold Lake Bog.
+GOLDKBG <- get_download(t8kyr.datasets[[1]])
+
+gold.p25 <- compile_taxa(GOLDKBG, 'P25')
+
+} # }
+```

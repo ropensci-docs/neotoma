@@ -1,0 +1,559 @@
+# neotoma
+
+[![Build
+Status](https://api.travis-ci.org/ropensci/neotoma.png)](https://travis-ci.org/ropensci/neotoma)
+[![Build
+status](https://ci.appveyor.com/api/projects/status/t2xyqbs0d8h998cb/branch/master)](https://ci.appveyor.com/project/sckott/neotoma/branch/master)
+[![codecov.io](https://codecov.io/github/ropensci/neotoma/coverage.svg?branch=master)](https://codecov.io/github/ropensci/neotoma?branch=master)
+[![rstudio mirror
+downloads](http://cranlogs.r-pkg.org/badges/grand-total/neotoma)](https://github.com/metacran/cranlogs.app)
+[![cran
+version](http://www.r-pkg.org/badges/version/neotoma)](https://cran.r-project.org/package=neotoma)
+[![NSF-1550707](https://img.shields.io/badge/NSF-1550707-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1550707)
+[![NSF-1948926](https://img.shields.io/badge/NSF-1948926-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1948926)
+
+**NOTE** *The package `neotoma` has now been deprecated. Unfortunately
+our wnapi.neotomadb.org server reached end of life and was no longer
+operable. The package has been replaced by
+[neotoma2](https://github.com/NeotomaDB/neotoma2). As much as possible
+we have kept many of the same patterns, but there are new data
+structures. The wnapi server was only passing along data submitted
+before June 2020. The new package accesses all data up until the
+present. Please contact us directly either by email (<goring@wisc.edu>)
+or on our slack workspace (there is an it_r channel) and we can help
+assist you in migrating to neotoma2.*
+
+The `neotoma` package is a programmatic R interface to the [Neotoma
+Paleoecological Database](http://www.neotomadb.org/). The package is
+intended to both allow users to search for sites and to download data
+for use in analyical workflows of paleoecological research.
+
+`neotoma` is part of the [rOpenSci](http://ropensci.org) project and is
+also hosted on [Figshare](http://dx.doi.org/10.6084/m9.figshare.677131).
+The `neotoma` package has been available on
+[CRAN](https://cran.r-project.org/package=neotoma) since May 3, 2015.
+
+For more information on the package please refer to:
+
+Goring, S., Dawson, A., Simpson, G. L., Ram, K., Graham, R. W., Grimm,
+E. C., & Williams, J. W.. (2015). neotoma: A Programmatic Interface to
+the Neotoma Paleoecological Database. *Open Quaternary*, 1(1), Art. 2.
+DOI: [10.5334/oq.ab](http://doi.org/10.5334/oq.ab)
+
+For ongoing news, issues or information please join the [Neotoma Slack
+server](https://bit.ly/2FrZyYD) (and add the \#r channel).
+[Slack](http://www.slack.com/) is a real time chat application and
+collaboration hub with mobile and desktop applications.
+
+### Development
+
+*We expect no further development of this package, however, we welcome
+contributions from any individual, whether code, documentation, or issue
+tracking. All participants are expected to follow the [code of
+conduct](https://github.com/ROpensci/neotoma/blob/master/code_of_conduct.md)
+for this project.*
+
+- [Simon Goring](http://goring.org) - University of Wisconsin-Madison,
+  Department of Geography
+
+### Contributors
+
+- [Gavin Simpson](http://www.fromthebottomoftheheap.net/) - University
+  of Regina, Department of Biology
+- [Jeremiah
+  Marsicek](http://geoweb.uwyo.edu/ggstudent/jmarsice/Site/Home.md) -
+  University of Wyoming, Department of Geology and Geophysics
+- [Karthik Ram](http://nature.berkeley.edu/~kram/) - University of
+  California - Berkely, Berkeley Institue for Data Science.
+- [Luke Sosalla](https://github.com/sosalla) - University of Wisconsin,
+  Department of Geography
+
+Package functions resolve various Neotoma APIs and re-form the data
+returned by the Neotoma database into R data objects. The format of the
+Neotoma data, and the actual API functions can be accessed on the
+Neotoma API [website](http://api.neotomadb.org/doc/resources/home).
+
+If you have used the package please consider providing us feedback
+through a [short
+survey](https://docs.google.com/forms/d/e/1FAIpQLSdRNat6L9grRF0xU5gibkr26xq9jD9wyHgw_AWxhrgn0lWv7w/viewform).
+
+### Install `neotoma`
+
+- CRAN:
+
+``` r
+
+install.packages('neotoma')
+```
+
+- Development version from GitHub:
+
+``` r
+
+install.packages("devtools")
+library(devtools)
+install_github("ropensci/neotoma")
+library(neotoma)
+```
+
+### Currently implemented in `neotoma`
+
+More functions are available through the package help. These represent
+the core functions:
+
+- `get_site` - obtain information on sites in the Neotoma dataset (which
+  may contain multiple datasets).
+  [API](http://api.neotomadb.org/doc/resources/sites)
+- `get_dataset` - obtain dataset metadata from Neotoma.
+  [API](http://api.neotomadb.org/doc/resources/datasets)
+- `get_download` - obtain full datasets (pollen or mammal) from Neotoma.
+  [API](http://api.neotomadb.org/doc/resources/downloads)
+- `compile_list` - using established pollen-related taxonomies from the
+  literature, take the published taxon list and standardize it to allow
+  cross site analysis.
+- `get_contact` - find contact information for data contributors to
+  Neotoma. [API](http://api.neotomadb.org/doc/resources/contacts)
+- `get_publication` - obtain publication information from Neotoma.
+  [API](http://api.neotomadb.org/doc/resources/publications)
+- `get_table` - return matrices corresponding to one of the Neotoma
+  database tables.
+  [tables](http://api.neotomadb.org/doc/resources/dbtables)
+- `get_taxa` - Get taxon information from Neotoma.
+  [API](http://api.neotomadb.org/doc/resources/taxa)
+- `get_chroncontrol` - Get chronological information used to build the
+  age-depth model for the record.
+  [API](http://api.neotomadb.org/doc/resources/chroncontrol)
+
+### Recent Changes
+
+- 1.7.6: Updated the API endpoints to correctly point to the new windows
+  API endpoint, in preparation for migration; Fixed the help for
+  [`get_closest()`](https://docs.ropensci.org/neotoma/reference/get_closest.md);
+  Changed character encoding for two data tables, `pollen.equiv` and
+  `taxon.list`, made them available in the main package using
+  [`data()`](https://rdrr.io/r/utils/data.html).
+- 1.7.4: Bug fix: `get_dataset(gpid=123)` was returning an error, fix
+  corrects the error to allow unassigned `x` variables. Updated the
+  allowable dataset types for searching to reflect the larger set of
+  dataset types within Neotoma.
+- 1.7.3: Added numeric/integer methods to the
+  [`get_site()`](https://docs.ropensci.org/neotoma/reference/get_site.md)
+  and
+  [`get_dataset()`](https://docs.ropensci.org/neotoma/reference/get_dataset.md)
+  functions so that a vector of dataset or siteids can be passed to
+  improve more general workflow methods.
+- 1.7.2: Bugfixes, added the
+  [`taxa()`](https://docs.ropensci.org/neotoma/reference/taxa.md)
+  function to easily extract taxa from one or multiple download objects.
+- 1.7.1: Bugfix for `compile_download()`, single sample downloads were
+  failing to compile properly, added the
+  [`taxa()`](https://docs.ropensci.org/neotoma/reference/taxa.md)
+  function to extract taxa lists from large download objects.
+- 1.7.0: Added
+  [`plot_leaflet()`](https://docs.ropensci.org/neotoma/reference/plot_leaflet.md)
+  to allow interactive exploration of downloaded Neotoma data.
+  Integrates with the Neotoma Explorer. Minor bugfix for
+  [`get_download()`](https://docs.ropensci.org/neotoma/reference/get_download.md)
+  to allow records to be sent to Neotoma and to be filtered.
+- 1.6.2: Improved the basic
+  [`plot()`](https://rdrr.io/r/graphics/plot.default.html) method based
+  on tests against Tilia files in the Neotoma Holding Tank & built more
+  robust interpolation in
+  [`read_bacon()`](https://docs.ropensci.org/neotoma/reference/read_bacon.md)
+  so that age models without interpolated dates can still be imported.
+  [`browse()`](https://docs.ropensci.org/neotoma/reference/browse.md)
+  now opens multiple datastes in the Neotoma Explorer at once.
+- 1.6.1: New `Stratiplot()` method, using the `analogue` package to plot
+  dataset diagrams from `download` and `download_list` objects, bug
+  fixes for
+  [`write_agefile()`](https://docs.ropensci.org/neotoma/reference/write_agefile.md)
+  and a new function,
+  [`read_bacon()`](https://docs.ropensci.org/neotoma/reference/read_bacon.md),
+  to read in and integrate Bacon chronologies into `download` objects.
+- 1.6.0: Support for vector inputs in the `gpid` selection. Added a
+  [`get_closest()`](https://docs.ropensci.org/neotoma/reference/get_closest.md)
+  function to find the closest sample site. Mostly clean-up of reported
+  bugs by users. Revised examples for faster check speed.
+- 1.5.1: Minor fix to the
+  [`get_dataset()`](https://docs.ropensci.org/neotoma/reference/get_dataset.md)
+  for site level data to account for some datasets with empty submission
+  data. Some style changes to code (non-functional changes)
+- 1.5.0: More extensive testing to support multiple dataset types. Water
+  chemistry datasets still unsupported. Function
+  [`read.tilia()`](https://docs.ropensci.org/neotoma/reference/read.tilia.md)
+  added to read Tilia (<http://tiliait.com>) style XML files. Moved to
+  using `xml2`, `httr` and `jsonlite` to support parsing.
+- 1.4.1: Small changes to
+  [`get_geochron()`](https://docs.ropensci.org/neotoma/reference/get_geochron.md)
+  to address bug reports and improve object `print` methods.
+- 1.4.0: Added [`plot()`](https://rdrr.io/r/graphics/plot.default.html)
+  method for datasets, sites & downloads. Fixed a bug with records
+  missing chronologies.
+
+### A few examples:
+
+#### Find the distribution of sites with Mammoth fossils in Neotoma
+
+``` r
+#  Example requires the mapdata package:
+library('mapdata')
+
+#  You may use either '%' or '*' as wildcards for search terms:
+test <- get_dataset(taxonname='Mammuthus*')
+
+The API call was successful, you have returned  3273 records.
+
+site.locs <- get_site(test)
+
+# A crude way of making the oceans blue.
+plot(1, type = 'n',
+     xlim=range(site.locs$long)+c(-10, 10),
+     ylim=range(site.locs$lat)+c(-10, 10),
+     xlab='Longitude', ylab = 'Latitude')
+rect(par("usr")[1],par("usr")[3],par("usr")[2],par("usr")[4],col = "lightblue")
+map('world',
+    interior=TRUE,
+    fill=TRUE,
+    col='gray',
+    xlim=range(site.locs$long)+c(-10, 10),
+    ylim=range(site.locs$lat)+c(-10, 10),
+    add=TRUE)
+
+points(site.locs$long, site.locs$lat, pch=19, cex=0.5, col='red')
+```
+
+![thing](inst/img/mammothsites.png)
+
+thing
+
+#### Plot the proportion of publications per year for datasets in Neotoma
+
+``` r
+
+# Requires ggplot2
+library('ggplot2')
+library('plyr')
+pubs <- get_publication()
+
+pub.years <- ldply(pubs, "[[", "meta")
+
+ggplot(data=pub.years, aes(x = year)) +
+     stat_bin(aes(y=..density..*100, position='dodge'), binwidth=1) +
+     theme_bw() +
+     ylab('Percent of Publications') +
+     xlab('Year of Publication') +
+     scale_y_continuous(expand = c(0, 0.1)) +
+     scale_x_continuous(breaks = seq(min(pub.years$year, na.rm=TRUE), 2014, by=20))
+```
+
+![thing](inst/img/histogramplot.png)
+
+thing
+
+#### Cumulative plot of record uploads to Neotoma since 1998.
+
+Found at [this
+gist](https://gist.github.com/SimonGoring/718a654f304f2d16ce4b)
+
+![cumulativerecords](https://cloud.githubusercontent.com/assets/1619126/9884174/0026b83a-5ba4-11e5-9f1a-4a6874ceceb6.png)
+
+cumulativerecords
+
+#### Obtain records & Rebuild Chronologies with Bacon
+
+Found at [this
+gist](https://gist.github.com/SimonGoring/877dd71cc3ad6bf8531e).
+Prepared in part for a Bacon (Blaauw & Christen, 2011) workshop at the
+2015 International Limnogeology Conference in Reno-Tahoe, Nevada led by
+Amy Myrbo (University of Minnesota).
+
+#### Simple paleo-data visualization
+
+Simple paleo-data visualization in R, linking the `rioja`, `neotoma` and
+`dplyr` packages. Found at [this
+gist](https://gist.github.com/SimonGoring/dbb4c8e0087882dc143baa89fa041d2b).
+
+![gif](inst/img/inkspot_neotoma.gif)
+
+gif
+
+#### Find all site elevations in California:
+
+Found at [Simon Goring’s
+gist.](https://gist.github.com/SimonGoring/6a2ba1d55a3a7f78723b37e896b55b70).
+
+#### Match all Neotoma taxa to external databases using `taxize`:
+
+Found at [Simon Goring’s
+gist.](https://gist.github.com/SimonGoring/24fb1228204f768f3f0020f37060db18).
+
+#### Other Resources Using `neotoma`
+
+- [A simple `neotoma`
+  workshop](http://www.goring.org/resources/Neotoma_Lesson.md)
+- [Data exploration and chronologies with
+  `neotoma`](http://www.goring.org/resources/neotoma_lab_meeting.md)
+
+### `neotoma` Workshops
+
+We have provided a set of educational tools through the
+[NeotomaDB](http://github.com/neotomaDB) GitHub repository in the
+[Workshops](http://github.com/NeotomaDB/Workshops) repository. These are
+free to share, and can be modified as needed.
+
+# Package index
+
+## All functions
+
+- [`Stratiplot(`*`<download>`*`)`](https://docs.ropensci.org/neotoma/reference/Stratiplot.download.md)
+  : Palaeoecological stratigraphic diagrams
+
+- [`Stratiplot(`*`<download_list>`*`)`](https://docs.ropensci.org/neotoma/reference/Stratiplot.download_list.md)
+  : Palaeoecological stratigraphic diagrams
+
+- [`ages()`](https://docs.ropensci.org/neotoma/reference/ages.md) :
+  Access proxy age data
+
+- [`bind()`](https://docs.ropensci.org/neotoma/reference/bind.md) :
+  Function to bind objects together into a longer object.
+
+- [`browse()`](https://docs.ropensci.org/neotoma/reference/browse.md) :
+  Open a browser window to display a Neotoma dataset within the Neotoma
+  Explorer
+
+- [`browse(`*`<dataset>`*`)`](https://docs.ropensci.org/neotoma/reference/browse.dataset.md)
+  : Open a browser window to display a Neotoma dataset within the
+  Neotoma Explorer
+
+- [`browse(`*`<dataset_list>`*`)`](https://docs.ropensci.org/neotoma/reference/browse.dataset_list.md)
+  : Open a browser window to display a Neotoma dataset within the
+  Neotoma Explorer
+
+- [`browse(`*`<default>`*`)`](https://docs.ropensci.org/neotoma/reference/browse.default.md)
+  : Open a browser window to display a Neotoma dataset within the
+  Neotoma Explorer
+
+- [`browse(`*`<download>`*`)`](https://docs.ropensci.org/neotoma/reference/browse.download.md)
+  : Open a browser window to display a Neotoma dataset within the
+  Neotoma Explorer
+
+- [`browse(`*`<download_list>`*`)`](https://docs.ropensci.org/neotoma/reference/browse.download_list.md)
+  : Open a browser window to display a Neotoma dataset within the
+  Neotoma Explorer
+
+- [`compile_downloads()`](https://docs.ropensci.org/neotoma/reference/compile_downloads.md)
+  : Compile download objects
+
+- [`compile_taxa()`](https://docs.ropensci.org/neotoma/reference/compile_taxa.md)
+  : Function to convert assemblage taxa to standardized lists.
+
+- [`counts()`](https://docs.ropensci.org/neotoma/reference/counts.md) :
+  Access proxy count data
+
+- [`depths()`](https://docs.ropensci.org/neotoma/reference/depths.md) :
+  Extracts the depth values from a \`download\` object
+
+- [`download`](https://docs.ropensci.org/neotoma/reference/download.md)
+  : A class for download objects.
+
+- [`get_chroncontrol()`](https://docs.ropensci.org/neotoma/reference/get_chroncontrol.md)
+  : Function to return chronological control tables used to build age
+  models.
+
+- [`get_chroncontrol(`*`<dataset>`*`)`](https://docs.ropensci.org/neotoma/reference/get_chroncontrol.dataset.md)
+  :
+
+  Function to return chronological control tables from a `dataset`.
+
+- [`get_chroncontrol(`*`<dataset_list>`*`)`](https://docs.ropensci.org/neotoma/reference/get_chroncontrol.dataset_list.md)
+  :
+
+  Function to return chronological control tables from a `dataset_list`.
+
+- [`get_chroncontrol(`*`<default>`*`)`](https://docs.ropensci.org/neotoma/reference/get_chroncontrol.default.md)
+  : Function to return chronological control tables from a chronologic
+  ID.
+
+- [`get_chroncontrol(`*`<download>`*`)`](https://docs.ropensci.org/neotoma/reference/get_chroncontrol.download.md)
+  :
+
+  Function to return chronological control tables from a `download`
+  object.
+
+- [`get_chroncontrol(`*`<download_list>`*`)`](https://docs.ropensci.org/neotoma/reference/get_chroncontrol.download_list.md)
+  :
+
+  Function to return chronological control tables from a `download_list`
+  object.
+
+- [`get_closest()`](https://docs.ropensci.org/neotoma/reference/get_closest.md)
+  : Find the closest dataset records to a site, dataset or long/lat pair
+  in Neotoma
+
+- [`get_contact()`](https://docs.ropensci.org/neotoma/reference/get_contact.md)
+  : Get contact information.
+
+- [`get_dataset()`](https://docs.ropensci.org/neotoma/reference/get_dataset.md)
+  : Obtain dataset information from the Neotoma Paleoecological Database
+  or an existing object.
+
+- [`get_dataset(`*`<default>`*`)`](https://docs.ropensci.org/neotoma/reference/get_dataset.default.md)
+  : Obtain dataset information from the Neotoma Paleoecological Database
+  or an existing object.
+
+- [`get_dataset(`*`<download>`*`)`](https://docs.ropensci.org/neotoma/reference/get_dataset.download.md)
+  :
+
+  Obtain dataset information from an existing `download` object.
+
+- [`get_dataset(`*`<download_list>`*`)`](https://docs.ropensci.org/neotoma/reference/get_dataset.download_list.md)
+  :
+
+  Obtain dataset information from a `download_list`.
+
+- [`get_dataset(`*`<geochronologic>`*`)`](https://docs.ropensci.org/neotoma/reference/get_dataset.geochronologic.md)
+  :
+
+  Obtain dataset information from an object of class `geochronologic`.
+
+- [`get_dataset(`*`<geochronologic_list>`*`)`](https://docs.ropensci.org/neotoma/reference/get_dataset.geochronologic_list.md)
+  :
+
+  Obtain dataset information from an object of class
+  `geochronologic_list`.
+
+- [`get_dataset(`*`<integer>`*`)`](https://docs.ropensci.org/neotoma/reference/get_dataset.integer.md)
+  : Obtain dataset information from a vector of dataset IDs.
+
+- [`get_dataset(`*`<numeric>`*`)`](https://docs.ropensci.org/neotoma/reference/get_dataset.numeric.md)
+  : Obtain dataset information from a vector of dataset IDs.
+
+- [`get_dataset(`*`<site>`*`)`](https://docs.ropensci.org/neotoma/reference/get_dataset.site.md)
+  :
+
+  Obtain dataset information from an existing `site` object.
+
+- [`get_download()`](https://docs.ropensci.org/neotoma/reference/get_download.md)
+  :
+
+  Function to return full download records using `site`s, `dataset`s, or
+  dataset IDs.
+
+- [`get_download(`*`<dataset>`*`)`](https://docs.ropensci.org/neotoma/reference/get_download.dataset.md)
+  :
+
+  Function to return full download records using a `dataset`.
+
+- [`get_download(`*`<dataset_list>`*`)`](https://docs.ropensci.org/neotoma/reference/get_download.dataset_list.md)
+  :
+
+  Function to return full download records using a `dataset_list`.
+
+- [`get_download(`*`<default>`*`)`](https://docs.ropensci.org/neotoma/reference/get_download.default.md)
+  :
+
+  Function to return full download records using `numeric` dataset IDs.
+
+- [`get_download(`*`<site>`*`)`](https://docs.ropensci.org/neotoma/reference/get_download.site.md)
+  :
+
+  Function to return full download records using a `site`.
+
+- [`get_geochron()`](https://docs.ropensci.org/neotoma/reference/get_geochron.md)
+  : Function to return geochronological data from records.
+
+- [`get_publication()`](https://docs.ropensci.org/neotoma/reference/get_publication.md)
+  : A function to get publications for sites or datasets in the Neotoma
+  Database using the API.
+
+- [`get_publication(`*`<dataset>`*`)`](https://docs.ropensci.org/neotoma/reference/get_publication.dataset.md)
+  : A function to get publications for datasets in the Neotoma Database
+  using the API.
+
+- [`get_publication(`*`<dataset_list>`*`)`](https://docs.ropensci.org/neotoma/reference/get_publication.dataset_list.md)
+  : A function to get publications for dataset_lists in the Neotoma
+  Database using the API.
+
+- [`get_publication(`*`<default>`*`)`](https://docs.ropensci.org/neotoma/reference/get_publication.default.md)
+  : A function to get publications for sites or datasets in the Neotoma
+  Database using the API.
+
+- [`get_publication(`*`<download>`*`)`](https://docs.ropensci.org/neotoma/reference/get_publication.download.md)
+  : A function to get publications for downloads in the Neotoma Database
+  using the API.
+
+- [`get_publication(`*`<download_list>`*`)`](https://docs.ropensci.org/neotoma/reference/get_publication.download_list.md)
+  : A function to get publications for datasets in the Neotoma Database
+  using the API.
+
+- [`get_site()`](https://docs.ropensci.org/neotoma/reference/get_site.md)
+  : Return Site Information.
+
+- [`get_site(`*`<dataset>`*`)`](https://docs.ropensci.org/neotoma/reference/get_site.dataset.md)
+  : Return Site Information from a numeric list of site ids.
+
+- [`get_site(`*`<dataset_list>`*`)`](https://docs.ropensci.org/neotoma/reference/get_site.dataset_list.md)
+  :
+
+  Return Site Information from a `dataset_list`
+
+- [`get_site(`*`<default>`*`)`](https://docs.ropensci.org/neotoma/reference/get_site.default.md)
+  : Return Site Information.
+
+- [`get_site(`*`<download>`*`)`](https://docs.ropensci.org/neotoma/reference/get_site.download.md)
+  :
+
+  Return Site Information from a `download`
+
+- [`get_site(`*`<download_list>`*`)`](https://docs.ropensci.org/neotoma/reference/get_site.download_list.md)
+  :
+
+  Return Site Information from a `download_list`
+
+- [`get_site(`*`<geochronologic>`*`)`](https://docs.ropensci.org/neotoma/reference/get_site.geochronologic.md)
+  :
+
+  Return Site Information from a `geochronologic`
+
+- [`get_site(`*`<geochronologic_list>`*`)`](https://docs.ropensci.org/neotoma/reference/get_site.geochronologic_list.md)
+  :
+
+  Return Site Information from a `geochronologic_list`
+
+- [`get_site(`*`<integer>`*`)`](https://docs.ropensci.org/neotoma/reference/get_site.integer.md)
+  : Return Site Information from a vector of integers.
+
+- [`get_site(`*`<numeric>`*`)`](https://docs.ropensci.org/neotoma/reference/get_site.numeric.md)
+  : Return Site information from a vector of numeric elements.
+
+- [`get_table()`](https://docs.ropensci.org/neotoma/reference/get_table.md)
+  : Get Neotoma value tables.
+
+- [`get_taxa()`](https://docs.ropensci.org/neotoma/reference/get_taxa.md)
+  : Get taxon information from Neotoma.
+
+- [`gp.table`](https://docs.ropensci.org/neotoma/reference/gp.table.md)
+  : A list of all the geopolitical entities in the Neotoma database.
+
+- [`plot_leaflet()`](https://docs.ropensci.org/neotoma/reference/plot_leaflet.md)
+  : Leaflet plots for neotoma data.
+
+- [`pollen.equiv`](https://docs.ropensci.org/neotoma/reference/pollen.equiv.md)
+  : A table to convert the pollen taxa identified by investigators to
+  standardized lists.
+
+- [`read.tilia()`](https://docs.ropensci.org/neotoma/reference/read.tilia.md)
+  : Read proxy data from Tilia TLX files
+
+- [`read_bacon()`](https://docs.ropensci.org/neotoma/reference/read_bacon.md)
+  : Function to read in defined Bacon outputs.
+
+- [`taxa()`](https://docs.ropensci.org/neotoma/reference/taxa.md) :
+  Access proxy taxonomic data
+
+- [`taxon.list`](https://docs.ropensci.org/neotoma/reference/taxon.list.md)
+  : Neotoma taxon list
+
+- [`write_agefile()`](https://docs.ropensci.org/neotoma/reference/write_agefile.md)
+  : Write age control file to disk formatted for either Bacon or Clam
+

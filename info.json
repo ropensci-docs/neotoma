@@ -1,0 +1,13 @@
+{
+  "commit": {
+    "commit": "fd935c440bb5809502bb3d41c034af0ce7a45ecc",
+    "author": "Simon <simon.j.goring@gmail.com>",
+    "time": "2022-11-30T19:07:46Z",
+    "files": 1,
+    "merge": false,
+    "message": "Update README.md\n\nAdded deprecation note."
+  },
+  "repo": "https://github.com/ropensci/neotoma",
+  "pkg": "neotoma",
+  "time": "2026-08-30T07:49:24Z"
+}
