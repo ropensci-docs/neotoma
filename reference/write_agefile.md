@@ -1,0 +1,71 @@
+# Write age control file to disk formatted for either Bacon or Clam
+
+Passing in a download object the function outputs a Bacon or Clam
+formatted file to a user defined destination for age modelling with
+existing age-depth modeling software.
+
+## Usage
+
+``` r
+write_agefile(download, chronology = 1, path, corename, cal.prog = "Bacon")
+```
+
+## Arguments
+
+- download:
+
+  A single site returned by `get_download`.
+
+- chronology:
+
+  Default is `1`, the default chronology for the core. If a core has
+  more than one chronology the user can define a different set of
+  chronological controls.
+
+- path:
+
+  The location of the 'Cores' folder & working directory for Bacon. Do
+  not include "Cores" in the path name.
+
+- corename:
+
+  The intended handle for the core, to be used in writing to file.
+
+- cal.prog:
+
+  The method intended to build the age model, either `'Bacon'` or
+  `'Clam'`.
+
+## Value
+
+This command returns a file in location `path/Cores` containing all the
+relevant information required to build either the default or prior
+chronology for a core.
+
+## References
+
+Neotoma Project Website: http://www.neotomadb.org API Reference:
+http://wnapi.neotomadb.org/doc/resources/contacts
+
+## Author
+
+Simon J. Goring <simon.j.goring@gmail.com>
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+# Find a particular record:
+
+three_pines <- get_download(get_dataset(get_site("Three Pines Bog"), 
+                                        datasettype = "pollen"))
+
+# You will need to edit the `path` argument here to point to a directory that 
+# contains a `Cores` directory.
+
+write_agefile(download = three_pines[[1]], 
+              path = "./inst", 
+              corename = "THREEPINES", 
+              cal.prog = "Bacon")
+} # }
+```
